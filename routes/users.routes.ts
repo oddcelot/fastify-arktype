@@ -3,8 +3,10 @@ import { userSchema } from "../schema/user.schema.ts";
 import type { FastifyInstance } from "fastify";
 
 export const usersQuerySchema = type({
-  "limit?": "number>1",
-  "offset?": "number>0",
+  /** limits the max rows to get */
+  limit: "number > 1 = 10",
+  /** used e.g. for pagination */
+  offset: "number >= 0 = 0",
 });
 
 export async function userRoutes(fastify: FastifyInstance) {
@@ -28,7 +30,7 @@ export async function userRoutes(fastify: FastifyInstance) {
     },
     handler: async (request, reply) => {
       // TODO: remove yolo mode - infer options form query schema
-      const { limit = 10, offset = 0 } = request.query;
+      const { limit, offset } = request.query as typeof usersQuerySchema.infer;
       return {
         success: true,
         data: {
