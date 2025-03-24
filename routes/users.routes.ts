@@ -1,5 +1,5 @@
 import { type } from "arktype";
-import { userSchema } from "../schema/user.schema.ts";
+import { userSchema } from "../schema/user.schema.js";
 import type { FastifyInstance } from "fastify";
 
 export const usersQuerySchema = type({
