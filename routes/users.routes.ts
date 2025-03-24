@@ -1,12 +1,13 @@
 import { type } from "arktype";
-import { userSchema } from "../schema/user.schema";
+import { userSchema } from "../schema/user.schema.ts";
+import type { FastifyInstance } from "fastify";
 
 export const usersQuerySchema = type({
   "limit?": "number>1",
   "offset?": "number>0",
 });
 
-export default async function userRoutes(fastify) {
+export async function userRoutes(fastify: FastifyInstance) {
   fastify.post("/users", {
     schema: {
       body: userSchema,
@@ -26,6 +27,7 @@ export default async function userRoutes(fastify) {
       querystring: usersQuerySchema,
     },
     handler: async (request, reply) => {
+      // TODO: remove yolo mode - infer options form query schema
       const { limit = 10, offset = 0 } = request.query;
       return {
         success: true,

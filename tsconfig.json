@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "NodeNext",
     "verbatimModuleSyntax": true,
-    "strict": true
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   },
   "exclude": ["node_modules"]
 }
